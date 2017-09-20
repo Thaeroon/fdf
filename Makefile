@@ -6,7 +6,7 @@
 #    By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 16:48:28 by nmuller           #+#    #+#              #
-#    Updated: 2017/08/22 07:28:34 by nmuller          ###   ########.fr        #
+#    Updated: 2017/09/20 17:58:50 by nmuller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,13 @@ OBJ_PATH = obj
 # compiler flags
 CC = clang
 CFLAGS = -Werror -Wall -Wextra -ggdb -Iinc
-LFLAGS = -I $(LIB_PATH)/libft
+LFLAGS = -I $(LIB_PATH)/libft -I $(LIB_PATH)/minilibx_macos
 
 # linker flags
-LKFLAGS =  -lmlx -lXext -lX11
+LKFLAGS =  -lmlx -framework OpenGL -framework Appkit
 
 # libs
-LIB = $(LIB_PATH)/libftall/libftall.a
+LIB = $(LIB_PATH)/libftall/libftall.a $(LIB_PATH)/minilibx_macos/libmlx.a
 
 # files
 SRC_FILES =	main.c input.c
@@ -56,6 +56,7 @@ $(NAME): $(OBJ) $(LIB)
 
 lib:
 	@make -C $(LIB_PATH)/libftall
+	@make -C $(LIB_PATH)/minilibx_macos
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true

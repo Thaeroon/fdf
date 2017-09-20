@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:52 by nmuller           #+#    #+#             */
-/*   Updated: 2017/08/22 06:38:08 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/20 17:46:52 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,16 @@ typedef struct	s_point
 	int		y;
 	int		color;
 }				t_point;
+
+typedef struct	s_img
+{
+	void	*ptr;
+	int		height;
+	int		width;
+	char	*buffer;
+	int		bpp;
+	int		line_s;
+	int		endian;
+}				t_img;
 
 #endif
