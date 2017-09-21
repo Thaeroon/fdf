@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 15:14:44 by nicolas           #+#    #+#             */
-/*   Updated: 2016/11/24 14:23:26 by nicolas          ###   ########.fr       */
+/*   Updated: 2017/09/21 16:04:01 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strtrim(char const *s);
 int				ft_tolower(int c);
 int				ft_toupper(int c);
+int				ft_xtoi(char *hex);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 16:48:28 by nmuller           #+#    #+#              #
-#    Updated: 2017/09/20 17:58:50 by nmuller          ###   ########.fr        #
+#    Updated: 2017/09/21 14:19:42 by nmuller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,10 +24,10 @@ OBJ_PATH = obj
 # compiler flags
 CC = clang
 CFLAGS = -Werror -Wall -Wextra -ggdb -Iinc
-LFLAGS = -I $(LIB_PATH)/libft -I $(LIB_PATH)/minilibx_macos
+LFLAGS = -I $(LIB_PATH)/libftall/inc -I $(LIB_PATH)/minilibx_macos
 
 # linker flags
-LKFLAGS =  -lmlx -framework OpenGL -framework Appkit
+LKFLAGS =  -lmlx -framework OpenGL -framework Appkit -Llib/libftall -lftall
 
 # libs
 LIB = $(LIB_PATH)/libftall/libftall.a $(LIB_PATH)/minilibx_macos/libmlx.a
@@ -52,7 +52,7 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_FILES))
 all: lib $(NAME)
 
 $(NAME): $(OBJ) $(LIB)
-	$(CC) $(OBJ) -o $(NAME) $(LKFLAGS) $(LFLAGS)
+	$(CC) $(OBJ) -o $(NAME) $(LKFLAGS)
 
 lib:
 	@make -C $(LIB_PATH)/libftall
@@ -60,7 +60,7 @@ lib:
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) $(LFLAGS) -o $@ -c $<
 
 clean:
 	@rm -fv $(OBJ)
@@ -72,7 +72,7 @@ fclean: clean
 fcleanall: fclean
 	@make fclean -C $(LIB_PATH)/libftall
 
-re: fclean all fcleanall
+re: fclean all
 
 norme:
 	norminette $(SRC)

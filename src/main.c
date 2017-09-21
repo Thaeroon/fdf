@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 15:50:43 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/20 18:09:33 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/21 13:58:44 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_img	*init(void *mlx)
 	t_img *img;
 
 	(!(img = (t_img*)malloc(sizeof(t_img)))) ? exit(-1) : 0;
-	img->width = 400;
-	img->height = 300;
+	img->width = WINDOW_WIDTH;
+	img->height = WINDOW_HEIGHT;
 	img->ptr = mlx_new_image(mlx, img->width, img->height);
 	img->buffer = mlx_get_data_addr(img->ptr, &img->bpp, &img->line_s, &img->endian);
 	return (img);
@@ -45,8 +45,10 @@ int		main(int argc, char const *argv[])
 	int		y;
 	int		x;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 500, 500, "test");
+	get_input(argv[1]);
+
+	/*mlx = mlx_init();
+	win = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "test");
 	img = init(mlx);
 	y = -1;
 	while (++y < img->height)
@@ -54,12 +56,17 @@ int		main(int argc, char const *argv[])
 		x = -1;
 		while (++x < img->width)
 		{
-			put_pixel(img, x, y, 0xffff0000);
+			put_pixel(img, x, y, 0xff0000);
 		}
 	}
-	mlx_put_image_to_window(mlx, win, img->ptr, 10, 0);
-	mlx_loop(mlx);
+	mlx_put_image_to_window(mlx, win, img->ptr, 0, 0);
+	mlx_loop(mlx);*/
 	(void)argc;
 	(void)argv;
+	(void)mlx;
+	(void)img;
+	(void)win;
+	(void)x;
+	(void)y;
 	return (0);
 }

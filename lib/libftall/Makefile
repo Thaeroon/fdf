@@ -6,7 +6,7 @@
 #    By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 16:48:28 by nmuller           #+#    #+#              #
-#    Updated: 2017/08/22 07:21:49 by nmuller          ###   ########.fr        #
+#    Updated: 2017/09/21 16:06:32 by nmuller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRC_FILES =	get_next_line.c \
 			ft_strncpy.c ft_strcat.c ft_strncat.c ft_strlcat.c ft_memcpy.c \
 			ft_strchr.c ft_strrchr.c ft_memset.c ft_bzero.c ft_memccpy.c \
 			ft_memmove.c ft_memchr.c ft_memcmp.c ft_lstnew.c ft_lstdelone.c \
-			ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_strfjoin.c
+			ft_lstdel.c ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_strfjoin.c \
+			ft_xtoi.c
 
 # executable name
 NAME = libftall.a

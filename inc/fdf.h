@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:52 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/20 17:46:52 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/21 16:31:34 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@
 
 # include <math.h>
 # include <stdlib.h>
+# include "libft.h"
+# include "ft_printf.h"
+# include "get_next_line.h"
+
+# define WINDOW_HEIGHT 500
+# define WINDOW_WIDTH 600
 
 typedef struct	s_point
 {
-	int		x;
-	int		y;
+	int		z;
 	int		color;
 }				t_point;
 
@@ -35,5 +40,7 @@ typedef struct	s_img
 	int		line_s;
 	int		endian;
 }				t_img;
+
+void			get_input(const char*);
 
 #endif

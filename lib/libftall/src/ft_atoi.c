@@ -6,7 +6,7 @@
 /*   By: nicolas <nicolas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 18:12:53 by nicolas           #+#    #+#             */
-/*   Updated: 2016/11/07 19:50:24 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/21 14:43:24 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int		ft_atoi(const char *nptr)
 
 	nb = 0;
 	len = 0;
+	if (!nptr)
+		return (0);
 	while (nptr[len] == ' ' || nptr[len] == '\t' || nptr[len] == '\v'
 		|| nptr[len] == '\f' || nptr[len] == '\r' || nptr[len] == '\n')
 		len++;
