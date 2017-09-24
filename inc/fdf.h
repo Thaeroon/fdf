@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:52 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/21 16:31:34 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/24 21:15:07 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,15 @@ typedef struct	s_point
 	int		color;
 }				t_point;
 
+typedef struct	s_map
+{
+	int		nb_x;
+	int		nb_y;
+	int		z_max;
+	int		z_min;
+	t_point	**point;
+}				t_map;
+
 typedef struct	s_img
 {
 	void	*ptr;
@@ -38,9 +47,11 @@ typedef struct	s_img
 	char	*buffer;
 	int		bpp;
 	int		line_s;
-	int		endian;
+	int		e;
 }				t_img;
 
-void			get_input(const char*);
+t_map			*get_input(const char*);
+void			put_pixel(t_img *img, int x, int y, unsigned int c);
+void			disp_map(t_img *img, t_map *map);
 
 #endif
