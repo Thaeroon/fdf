@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 15:50:43 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/24 21:23:39 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 01:34:17 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	put_pixel(t_img *img, int x, int y, unsigned int c)
 	ptr_color[0] = (c >> 0x00) & 0xFF;
 	ptr_color[1] = (c >> 0x08) & 0xFF;
 	ptr_color[2] = (c >> 0x10) & 0xFF;
+	ptr_color[3] = (c >> 0x18) & 0xFF;
 }
 
 t_img	*init(void *mlx)
@@ -44,15 +45,13 @@ int		main(int argc, char const *argv[])
 	t_img	*img;
 	t_map	*map;
 
-	ft_printf("\nstart\n");
+	(argc != 2) ? exit(-5) : 0;
 	map = get_input(argv[1]);
 
-	ft_printf("\ninput ok\n");
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "test");
 	img = init(mlx);
-	disp_map(img, map);
-	ft_printf("\nok\n");
+	disp_map(img, map, 30);
 	mlx_put_image_to_window(mlx, win, img->ptr, 0, 0);
 	mlx_loop(mlx);
 	(void)argc;
@@ -60,5 +59,5 @@ int		main(int argc, char const *argv[])
 	(void)mlx;
 	(void)img;
 	(void)win;
-	return (0);
+return (0);
 }

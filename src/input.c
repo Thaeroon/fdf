@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:27 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/24 21:29:12 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 01:36:34 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,26 @@ void	disp_map_char(t_map *map)
 		x = -1;
 		while(++x < map->nb_x)
 		{
-			ft_printf("%i,%i ", map->point[y][x].z, map->point[y][x].color);
+			ft_printf("%i, %i, %i, %i\n", map->point[y][x].x, map->point[y][x].y, map->point[y][x].z, map->point[y][x].color);
 		}
 		ft_printf("\n");
 	}
 }
 
-void	populate_point(t_point *point, char *data)
+void	populate_point(t_point *point, char *data, int x, int y)
 {
+	point->x = x;
+	point->y = y;
 	point->z = ft_atoi(data);
 	while (*data && (*data != ' ') && (*data != ','))
 		data++;
 	if (*data == ',')
 		point->color = ft_xtoi(++data);
 	else
-		point->color = ft_xtoi("0xffffff");
+		point->color = 0x00ffffff;
 }
 
-int		populate_map(t_map *map, const char *file)
+void	populate_map(t_map *map, const char *file)
 {
 	int		fd;
 	char	*line;
@@ -64,12 +66,14 @@ int		populate_map(t_map *map, const char *file)
 			while (*line && (*line == ' '))
 				line++;
 			if (*line)
-				populate_point(&map->point[y][++x], line);
+			{
+				++x;
+				populate_point(&map->point[y][x], line, x, y);
+			}
 			while (*line && (*line != ' '))
 				line++;
 		}
 	}
-	return (0);
 }
 
 void	get_map_size(const char *file, t_map *map)

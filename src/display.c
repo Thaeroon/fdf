@@ -6,24 +6,47 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/24 20:18:29 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/24 21:30:35 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 01:50:14 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		set_x(t_point *point, int x)
+void	draw_line(t_img *img, t_point ps, t_point pe, int color)
 {
-	(void)point;
-	return (x);
+	int		p;
+	int		xe;
+
+	xe = pe.x;
+    pe.x = pe.x - ps.x;
+    pe.y = pe.y - ps.y;
+
+    p = 2 * pe.y - pe.x;
+
+    while (ps.x < xe)
+    {
+        if (p >= 0)
+        {
+            put_pixel(img, ps.x, ps.y, color);
+            ps.y = ps.y + 1;
+            p = p + 2 * pe.y - 2 * pe.x;
+        }
+        else
+        {
+            put_pixel(img, ps.x, ps.y, color);
+            p = p + 2 * pe.y;
+        }
+        ps.x = ps.x + 1;
+    }
 }
 
-int		set_y(int y)
+void	set_point(t_point *point, int zoom)
 {
-	return (y);
+	point->x *= zoom;
+	point->y *= zoom;
 }
 
-void	disp_map(t_img *img, t_map *map)
+void	disp_map(t_img *img, t_map *map, int zoom)
 {
 	int		x;
 	int		y;
@@ -32,11 +55,19 @@ void	disp_map(t_img *img, t_map *map)
 	while (++y < map->nb_y)
 	{
 		x = -1;
-		while(++x < map->nb_x)
+		while (++x < map->nb_x)
 		{
-			//ft_printf("%i, %i\n", x, y);
-			put_pixel(img->ptr, set_x(&(map->point[y][x]), x), set_y(y),
-													map->point[y][x].color);
+			set_point(&map->point[y][x], zoom);
+			if ((x < (map->nb_x - 1)) && (y < (map->nb_y - 1)))
+			{
+				draw_line(img, map->point[y][x], map->point[y][x + 1], 0x00ffffff);
+				draw_line(img, map->point[y][x], map->point[y + 1][x], 0x00ffffff);
+			}
+			else if (y < (map->nb_y - 1))
+				draw_line(img, map->point[y][x], map->point[y + 1][x], 0x00ffffff);
+			else if (x < (map->nb_x - 1))
+				draw_line(img, map->point[y][x], map->point[y][x + 1], 0x00ffffff);
 		}
 	}
+	draw_line(img, map->point[0][1], map->point[10][3], 0x00ffffff);
 }

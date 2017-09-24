@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:52 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/24 21:15:07 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 00:53:24 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 typedef struct	s_point
 {
+	int		x;
+	int		y;
 	int		z;
 	int		color;
 }				t_point;
@@ -52,6 +54,6 @@ typedef struct	s_img
 
 t_map			*get_input(const char*);
 void			put_pixel(t_img *img, int x, int y, unsigned int c);
-void			disp_map(t_img *img, t_map *map);
+void			disp_map(t_img *img, t_map *map, int zoom);
 
 #endif
