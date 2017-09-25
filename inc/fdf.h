@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:52 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/25 16:23:53 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 23:36:50 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct	s_img
 	int		line_s;
 	int		e;
 	int		z_max;
+	int		color;
 }				t_img;
 
 t_map			*get_input(const char*, t_img*);

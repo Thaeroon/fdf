@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:27 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/25 18:47:51 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 23:38:09 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	disp_map_char(t_map *map)
 	}
 }
 
-void	populate_point(t_point *point, char *data, int x, int y)
+int		populate_point(t_point *point, char *data, int x, int y)
 {
 	point->x = x;
 	point->y = y;
@@ -42,9 +42,12 @@ void	populate_point(t_point *point, char *data, int x, int y)
 	while (*data && (*data != ' ') && (*data != ','))
 		data++;
 	if (*data == ',')
+	{
 		point->color = ft_xtoi(++data);
-	else
-		point->color = 0x00ffffff;
+		return (1);
+	}
+	point->color = 0;
+	return (0);
 }
 
 void	populate_map(t_map *map, const char *file, t_img *img)
@@ -54,7 +57,7 @@ void	populate_map(t_map *map, const char *file, t_img *img)
 	int		x;
 	int		y;
 
-	y = -1;(void)img;
+	y = -1;
 	((fd = open(file, O_RDONLY)) == -1) ? exit (-1) : 0;
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -66,7 +69,7 @@ void	populate_map(t_map *map, const char *file, t_img *img)
 				line++;
 			if (*line && (++x + 1))
 			{
-				populate_point(&map->point[y][x], line, x, y);
+				img->color += populate_point(&map->point[y][x], line, x, y);
 				img->z_max = (map->point[y][x].z > img->z_max) ?
 								map->point[y][x].z : img->z_max;
 			}

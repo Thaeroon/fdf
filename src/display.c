@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/24 20:18:29 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/25 20:37:51 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 22:58:39 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,13 @@ void	draw_line(t_img *img, t_point p0, t_point p1)
 		put_pixel(img, p0.x, p0.y, get_color(p0, p1, dx, dy));
 		img->e = err;
 		if (img->e > -dx)
-		{
 			err -= dy;
+		if (img->e > -dx)
 			p0.x += sx;
-		}
 		if (img->e < dy)
-		{
 			err += dx;
+		if (img->e < dy)
 			p0.y += sy;
-		}
 	}
 }
 

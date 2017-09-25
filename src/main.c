@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 15:50:43 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/25 20:39:10 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 23:37:21 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_img	*init(void *mlx)
 	img->ptr = mlx_new_image(mlx, img->width, img->height);
 	img->buffer = mlx_get_data_addr(img->ptr, &img->bpp, &img->line_s, &img->e);
 	img->z_max = 0;
+	img->color = 0;
 	return (img);
 }
 
@@ -38,13 +39,8 @@ int		main(int argc, char const *argv[])
 	win = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "test");
 	img = init(mlx);
 	map = get_input(argv[1], img);
-	disp_map(img, map, 10);
+	disp_map(img, map, 3);
 	mlx_put_image_to_window(mlx, win, img->ptr, 0, 0);
 	mlx_loop(mlx);
-	(void)argc;
-	(void)argv;
-	(void)mlx;
-	(void)img;
-	(void)win;
 	return (0);
 }
