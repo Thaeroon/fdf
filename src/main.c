@@ -6,25 +6,12 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 15:50:43 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/25 01:34:17 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 20:39:10 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "fdf.h"
-
-void	put_pixel(t_img *img, int x, int y, unsigned int c)
-{
-	char	*ptr_color;
-
-	if (img == NULL || x < 0 || y < 0 || x >= img->width || y >= img->height)
-		return ;
-	ptr_color = img->buffer + (x * (img->bpp >> 3) + y * img->line_s);
-	ptr_color[0] = (c >> 0x00) & 0xFF;
-	ptr_color[1] = (c >> 0x08) & 0xFF;
-	ptr_color[2] = (c >> 0x10) & 0xFF;
-	ptr_color[3] = (c >> 0x18) & 0xFF;
-}
 
 t_img	*init(void *mlx)
 {
@@ -35,6 +22,7 @@ t_img	*init(void *mlx)
 	img->height = WINDOW_HEIGHT;
 	img->ptr = mlx_new_image(mlx, img->width, img->height);
 	img->buffer = mlx_get_data_addr(img->ptr, &img->bpp, &img->line_s, &img->e);
+	img->z_max = 0;
 	return (img);
 }
 
@@ -46,12 +34,11 @@ int		main(int argc, char const *argv[])
 	t_map	*map;
 
 	(argc != 2) ? exit(-5) : 0;
-	map = get_input(argv[1]);
-
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, WINDOW_WIDTH, WINDOW_HEIGHT, "test");
 	img = init(mlx);
-	disp_map(img, map, 30);
+	map = get_input(argv[1], img);
+	disp_map(img, map, 10);
 	mlx_put_image_to_window(mlx, win, img->ptr, 0, 0);
 	mlx_loop(mlx);
 	(void)argc;
@@ -59,5 +46,5 @@ int		main(int argc, char const *argv[])
 	(void)mlx;
 	(void)img;
 	(void)win;
-return (0);
+	return (0);
 }

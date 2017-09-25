@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:52 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/25 00:53:24 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 16:23:53 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "ft_printf.h"
 # include "get_next_line.h"
 
-# define WINDOW_HEIGHT 500
-# define WINDOW_WIDTH 600
+# define WINDOW_HEIGHT 600
+# define WINDOW_WIDTH 800
 
 typedef struct	s_point
 {
@@ -36,8 +36,6 @@ typedef struct	s_map
 {
 	int		nb_x;
 	int		nb_y;
-	int		z_max;
-	int		z_min;
 	t_point	**point;
 }				t_map;
 
@@ -50,10 +48,11 @@ typedef struct	s_img
 	int		bpp;
 	int		line_s;
 	int		e;
+	int		z_max;
 }				t_img;
 
-t_map			*get_input(const char*);
-void			put_pixel(t_img *img, int x, int y, unsigned int c);
+t_map			*get_input(const char*, t_img*);
+void			put_pixel(t_img *img, int x, int y, int z);
 void			disp_map(t_img *img, t_map *map, int zoom);
 
 #endif

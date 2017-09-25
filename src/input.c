@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:27 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/25 01:36:34 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/25 18:47:51 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,15 @@ void	populate_point(t_point *point, char *data, int x, int y)
 		point->color = 0x00ffffff;
 }
 
-void	populate_map(t_map *map, const char *file)
+void	populate_map(t_map *map, const char *file, t_img *img)
 {
 	int		fd;
 	char	*line;
 	int		x;
 	int		y;
 
-	y = -1;
-	if ((fd = open(file, O_RDONLY)) == -1)
-	 	exit (-2);
+	y = -1;(void)img;
+	((fd = open(file, O_RDONLY)) == -1) ? exit (-1) : 0;
 	while (get_next_line(fd, &line) > 0)
 	{
 		++y;
@@ -65,10 +64,11 @@ void	populate_map(t_map *map, const char *file)
 		{
 			while (*line && (*line == ' '))
 				line++;
-			if (*line)
+			if (*line && (++x + 1))
 			{
-				++x;
 				populate_point(&map->point[y][x], line, x, y);
+				img->z_max = (map->point[y][x].z > img->z_max) ?
+								map->point[y][x].z : img->z_max;
 			}
 			while (*line && (*line != ' '))
 				line++;
@@ -103,7 +103,7 @@ void	get_map_size(const char *file, t_map *map)
 	close(fd);
 }
 
-t_map	*get_input(const char *file)
+t_map	*get_input(const char *file,t_img *img)
 {
 	t_map	*map;
 	int		cpt;
@@ -114,8 +114,7 @@ t_map	*get_input(const char *file)
 	(map->point = (t_point**)malloc(sizeof(t_point*) * map->nb_y)) ? 0 : exit(-2);
 	while (++cpt < map->nb_x)
 		(map->point[cpt] = (t_point*)malloc(sizeof(t_point) * map->nb_x)) ? 0 : exit(-2);
-	ft_printf("%i %i\n", map->nb_x, map->nb_y);
-	populate_map(map, file);
-	disp_map_char(map);
+	populate_map(map, file, img);
+	//disp_map_char(map);
 	return (map);
 }
