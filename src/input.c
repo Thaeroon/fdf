@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:27 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/25 23:38:09 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/26 23:28:20 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-void	disp_map_char(t_map *map)
-{
-	int		x;
-	int		y;
-
-	y = -1;
-	while (++y < map->nb_y)
-	{
-		x = -1;
-		while(++x < map->nb_x)
-		{
-			ft_printf("%i, %i, %i, %i\n", map->point[y][x].x, map->point[y][x].y, map->point[y][x].z, map->point[y][x].color);
-		}
-		ft_printf("\n");
-	}
-}
 
 int		populate_point(t_point *point, char *data, int x, int y)
 {
@@ -46,7 +29,7 @@ int		populate_point(t_point *point, char *data, int x, int y)
 		point->color = ft_xtoi(++data);
 		return (1);
 	}
-	point->color = 0;
+	point->color = 0x00ffffff;
 	return (0);
 }
 
@@ -56,10 +39,11 @@ void	populate_map(t_map *map, const char *file, t_img *img)
 	char	*line;
 	int		x;
 	int		y;
+	int		ret;
 
 	y = -1;
 	((fd = open(file, O_RDONLY)) == -1) ? exit (-1) : 0;
-	while (get_next_line(fd, &line) > 0)
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		++y;
 		x = -1;
@@ -69,7 +53,7 @@ void	populate_map(t_map *map, const char *file, t_img *img)
 				line++;
 			if (*line && (++x + 1))
 			{
-				img->color += populate_point(&map->point[y][x], line, x, y);
+				img->c += populate_point(&map->point[y][x], line, x, y);
 				img->z_max = (map->point[y][x].z > img->z_max) ?
 								map->point[y][x].z : img->z_max;
 			}
@@ -77,6 +61,7 @@ void	populate_map(t_map *map, const char *file, t_img *img)
 				line++;
 		}
 	}
+	(ret < 0) ? exit(-3) : 0;
 }
 
 void	get_map_size(const char *file, t_map *map)
@@ -118,6 +103,5 @@ t_map	*get_input(const char *file,t_img *img)
 	while (++cpt < map->nb_x)
 		(map->point[cpt] = (t_point*)malloc(sizeof(t_point) * map->nb_x)) ? 0 : exit(-2);
 	populate_map(map, file, img);
-	//disp_map_char(map);
 	return (map);
 }
