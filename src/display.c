@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/24 20:18:29 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/26 22:58:37 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/27 14:18:15 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	put_pixel(t_img *img, int x, int y, int z)
 
 	if (img->c == 0)
 	{
-		if (z > (img->z_max * 3 / 4))
+		if (z > (img->z_max * 2 / 3))
 			c = 0x00ffffff;
-		else if (z > (img->z_max / 4))
+		else if (z > (img->z_max / 3))
 			c = 0x0087591A;
 		else
 			c = 0x0016B84E;
@@ -113,8 +113,8 @@ void	apply_proj(t_map *map)
 			proj_y = (x + y) * map->zoom / 2;
 			map->point[y][x].x = proj_x;
 			map->point[y][x].y = proj_y;
-			map->point[y][x].x += map->point[y][x].z * map->z_height;
-			map->point[y][x].y -= map->point[y][x].z * map->z_height;
+			map->point[y][x].x += map->point[y][x].z * ((float)map->z_height * map->zoom / P_ZOOM);
+			map->point[y][x].y -= map->point[y][x].z * ((float)map->z_height * map->zoom / P_ZOOM);
 			map->point[y][x].x += map->offset_x;
 			map->point[y][x].y += map->offset_y;
 		}
@@ -123,7 +123,7 @@ void	apply_proj(t_map *map)
 
 int		draw(t_map *map)
 {
-	ft_printf("draw, %i\n", map->zoom);
+	//ft_printf("draw, zoom=%i, z=%i\n", map->zoom, map->z_height);
 	apply_proj(map);
 	disp_map(map);
 	mlx_put_image_to_window(map->mlx, map->win, map->img->ptr, 0, 0);

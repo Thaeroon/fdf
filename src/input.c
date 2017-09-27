@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:27 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/26 23:28:20 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/27 12:38:26 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,29 @@ void	get_map_size(const char *file, t_map *map)
 {
 	int		fd;
 	char	*line;
+	int		tmp_x;
+	int		ret;
 
 	map->nb_x = 0;
 	map->nb_y = 0;
-	if ((fd = open(file, O_RDONLY)) == -1)
-	 	exit (-2);
-	if (get_next_line(fd, &line) > 0)
+	((fd = open(file, O_RDONLY)) == -1) ? exit (-2) : 0;
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
+		tmp_x = 0;
 		while (*line)
 		{
 			while (*line && (*line == ' '))
 				line++;
 			if (*line)
-				map->nb_x++;
+				tmp_x++;
 			while (*line && (*line != ' '))
 				line++;
 		}
 		map->nb_y++;
-		while (get_next_line(fd, &line) > 0)
-			map->nb_y++;
+		map->nb_x = (map->nb_x < tmp_x) ? tmp_x : map->nb_x;
 	}
 	close(fd);
+	(ret < 0) ? exit(-3) : 0;
 }
 
 t_map	*get_input(const char *file,t_img *img)

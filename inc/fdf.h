@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:52 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/26 22:36:40 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/27 14:09:32 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define P_WIN_Y 600
 # define M_WIN_X 1600
 # define M_WIN_Y 900
-# define PREF_ZOOM 30
+# define P_ZOOM 30
 
 typedef struct	s_point
 {
@@ -57,7 +57,7 @@ typedef struct	s_map
 	int		zoom;
 	int		offset_x;
 	int		offset_y;
-	float	z_height;
+	int		z_height;
 	t_img	*img;
 	void	*win;
 	void	*mlx;

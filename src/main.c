@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 15:50:43 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/26 23:07:57 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/27 14:18:22 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,12 @@ int		key_pressed(int key, void *parram)
 	else if (key == 109)
 		((t_map *)parram)->zoom -= 1;
 	else if (key == 111)
-		((t_map *)parram)->z_height += (float)((t_map *)parram)->zoom / PREF_ZOOM;
+		((t_map *)parram)->z_height += 1;
 	else if (key == 108)
-		((t_map *)parram)->z_height -= (float)((t_map *)parram)->zoom / PREF_ZOOM;
-	if ((65361 <= key && key <= 65364) || (108 <= key && key <= 112) || key == 32)
-	draw(parram);
+		((t_map *)parram)->z_height -= 1;
+	if ((65361 <= key && key <= 65364) || (108 <= key && key <= 112)
+										|| key == 32)
+		draw(parram);
 	return (0);
 }
 
