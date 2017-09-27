@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:52 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/27 14:09:32 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/27 14:47:13 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ int				ft_abs(int);
 void			apply_proj(t_map *map);
 void			center_map(t_map *map);
 void			get_window_size(t_map *map);
+void			destroy(t_map*);
 
 #endif

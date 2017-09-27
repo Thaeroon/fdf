@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 15:50:43 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/27 14:18:22 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/27 15:33:46 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ int		main(int argc, char const *argv[])
 	mlx_expose_hook(map->win, draw, map);
 	mlx_key_hook(map->win, key_pressed, map);
 	mlx_loop(map->mlx);
+	destroy(map);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/24 20:18:29 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/27 14:18:15 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/27 15:52:34 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	put_pixel(t_img *img, int x, int y, int z)
 			c = 0x00ffffff;
 		else if (z > (img->z_max / 3))
 			c = 0x0087591A;
+		else if (z == 0)
+			c = 0x000880FF;
 		else
 			c = 0x0016B84E;
 	}
@@ -46,11 +48,11 @@ void	draw_line(t_img *img, t_point p0, t_point p1, int err2)
 	int	sy;
 	int	err;
 
-	dx = ft_abs(p1.x - p0.x);
+	dx = abs(p1.x - p0.x);
 	sx = p0.x < p1.x ? 1 : -1;
-	dy = ft_abs(p1.y - p0.y);
+	dy = abs(p1.y - p0.y);
 	sy = p0.y < p1.y ? 1 : -1;
-	err = (dx > dy ? dx : -dy) / 2;
+	err = ((dx > dy) ? dx : -dy) / 2;
 
 	while(p0.x != p1.x || p0.y != p1.y)
 	{
