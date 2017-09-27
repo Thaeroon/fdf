@@ -6,12 +6,11 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/24 20:18:29 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/27 15:52:34 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/27 22:23:36 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <math.h>
 
 void	put_pixel(t_img *img, int x, int y, int z)
 {
@@ -53,19 +52,15 @@ void	draw_line(t_img *img, t_point p0, t_point p1, int err2)
 	dy = abs(p1.y - p0.y);
 	sy = p0.y < p1.y ? 1 : -1;
 	err = ((dx > dy) ? dx : -dy) / 2;
-
 	while(p0.x != p1.x || p0.y != p1.y)
 	{
-		put_pixel(img, p0.x, p0.y, (img->c) ? get_c(p0, p1, dx, dy) : get_z(p0, p1, dx, dy));
+		put_pixel(img, p0.x, p0.y, (img->c) ?
+							get_c(p0, p1, dx, dy) : get_z(p0, p1, dx, dy));
 		err2 = err;
 		if (err2 > -dx)
-			err -= dy;
-		if (err2 > -dx)
-			p0.x += sx;
+			((err -= dy) || 1) && (p0.x += sx);
 		if (err2 < dy)
-			err += dx;
-		if (err2 < dy)
-			p0.y += sy;
+			((err += dx) || 1) && (p0.y += sy);
 	}
 }
 
@@ -125,7 +120,6 @@ void	apply_proj(t_map *map)
 
 int		draw(t_map *map)
 {
-	//ft_printf("draw, zoom=%i, z=%i\n", map->zoom, map->z_height);
 	apply_proj(map);
 	disp_map(map);
 	mlx_put_image_to_window(map->mlx, map->win, map->img->ptr, 0, 0);

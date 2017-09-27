@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 13:55:14 by nmuller           #+#    #+#             */
-/*   Updated: 2017/08/22 07:17:08 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/27 23:52:11 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int		read_file(const int fd, char **line, char *buff)
 			buff = ft_strcpy(buff, tmp + 1);
 			free(*line);
 			*line = tmp2;
+			free(*line);
 			return (nb_read);
 		}
 		tmp2 = ft_strjoin(*line, buff);

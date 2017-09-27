@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:27 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/27 16:15:17 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/27 23:14:02 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	populate_map(t_map *map, const char *file, t_img *img)
 				line++;
 		}
 	}
+	free(line);
 }
 
 void	get_map_size(const char *file, t_map *map)
@@ -69,7 +70,6 @@ void	get_map_size(const char *file, t_map *map)
 	int		tmp_x;
 	int		ret;
 
-	map->nb_x = 0;
 	map->nb_y = 0;
 	((fd = open(file, O_RDONLY)) == -1) ? exit (-2) : 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
@@ -88,6 +88,7 @@ void	get_map_size(const char *file, t_map *map)
 		map->nb_x = (map->nb_x < tmp_x) ? tmp_x : map->nb_x;
 	}
 	close(fd);
+	free(line);
 	(ret < 0) ? exit(-3) : 0;
 }
 

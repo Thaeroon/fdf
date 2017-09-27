@@ -6,7 +6,7 @@
 #    By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 16:48:28 by nmuller           #+#    #+#              #
-#    Updated: 2017/09/26 22:45:42 by nmuller          ###   ########.fr        #
+#    Updated: 2017/09/27 22:26:24 by nmuller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ LKFLAGS =  -Llib/minilibx_x11 -lmlx -lXext -lX11 -Llib/libftall -lftall -lm
 LIB = $(LIB_PATH)/libftall/libftall.a $(LIB_PATH)/minilibx_x11/libmlx.a
 
 # files
-SRC_FILES =	main.c input.c display.c utils.c windows.c
+SRC_FILES =	main.c input.c display.c utils.c
 
 # executable name
 NAME = fdf
