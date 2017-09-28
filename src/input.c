@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:27 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/27 23:14:02 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/28 02:24:21 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,25 @@ void	populate_map(t_map *map, const char *file, t_img *img)
 	char	*line;
 	int		x;
 	int		y;
+	char	*tmp;
 
 	y = -1;
 	((fd = open(file, O_RDONLY)) == -1) ? exit (-1) : 0;
 	while (get_next_line(fd, &line) > 0)
 	{
-		++y;
-		x = -1;
+		((++y) || 1) && ((x = -1) || 1) && (tmp = line);
 		while (*line)
 		{
 			while (*line && (*line == ' '))
 				line++;
 			if (*line && (++x + 1))
-			{
-				img->c += populate_point(&map->point[y][x], line, x, y);
-				img->z_max = (map->point[y][x].z > img->z_max) ?
-								map->point[y][x].z : img->z_max;
-			}
+				((img->c += populate_point(&map->point[y][x], line, x, y)) ||1 )
+				&& (img->z_max = (map->point[y][x].z > img->z_max) ?
+								map->point[y][x].z : img->z_max);
 			while (*line && (*line != ' '))
 				line++;
 		}
+		line = tmp;
 	}
 	free(line);
 }
@@ -69,20 +68,20 @@ void	get_map_size(const char *file, t_map *map)
 	char	*line;
 	int		tmp_x;
 	int		ret;
+	int		x;
 
-	map->nb_y = 0;
 	((fd = open(file, O_RDONLY)) == -1) ? exit (-2) : 0;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		tmp_x = 0;
-		while (*line)
+		((tmp_x = 0) || 1) && (x = 0);
+		while (line[x])
 		{
-			while (*line && (*line == ' '))
-				line++;
-			if (*line)
+			while (line[x] && (line[x] == ' '))
+				x++;
+			if (line[x])
 				tmp_x++;
-			while (*line && (*line != ' '))
-				line++;
+			while (line[x] && (line[x] != ' '))
+				x++;
 		}
 		map->nb_y++;
 		map->nb_x = (map->nb_x < tmp_x) ? tmp_x : map->nb_x;
@@ -99,16 +98,15 @@ t_map	*get_input(const char *file,t_img *img)
 
 	cpt = -1;
 	(map = (t_map*)malloc(sizeof(t_map))) ? 0 : exit(-2);
+	map->nb_y = 0;
 	get_map_size(file, map);
 	if (map->nb_x == 0)
 		exit (-4);
 	(map->point = (t_point**)malloc(sizeof(t_point*) * map->nb_y)) ?
 																0 : exit(-2);
-	while (++cpt < map->nb_y){
+	while (++cpt < map->nb_y)
 		(map->point[cpt] = (t_point*)malloc(sizeof(t_point) * map->nb_x)) ?
 																0 : exit(-2);
-
-	}
 	populate_map(map, file, img);
 	return (map);
 }
