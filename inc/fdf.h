@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 06:24:52 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/27 14:47:13 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/28 17:22:30 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include "get_next_line.h"
 # include "mlx.h"
 
-# define P_WIN_X 800
+# define P_WIN_X 600
 # define P_WIN_Y 600
-# define M_WIN_X 1600
-# define M_WIN_Y 900
+# define M_WIN_X 1200
+# define M_WIN_Y 1200
 # define P_ZOOM 30
 
 typedef struct	s_point
@@ -63,16 +63,15 @@ typedef struct	s_map
 	void	*mlx;
 }				t_map;
 
-t_map			*get_input(const char*, t_img*);
+t_map			*get_input(const char *data, t_img *img);
 void			put_pixel(t_img *img, int x, int y, int z);
 int				draw(t_map *map);
 int				disp_map(t_map *map);
 int				get_z(t_point p0, t_point p1, int dx, int dy);
 int				get_c(t_point p0, t_point p1, int dx, int dy);
-int				ft_abs(int);
 void			apply_proj(t_map *map);
 void			center_map(t_map *map);
 void			get_window_size(t_map *map);
-void			destroy(t_map*);
+void			destroy(t_map* map);
 
 #endif

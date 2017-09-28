@@ -6,36 +6,12 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/09 13:55:14 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/28 01:43:57 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/28 17:40:46 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "libft.h"
-
-int		ft_strtestjoin(char *s1, char const *s2)
-{
-	char	*ret;
-	size_t	len_s1;
-	size_t	len_s2;
-	size_t	index;
-
-	if (!s1 || !s2)
-		return (0);
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	if (!(ret = (char *)malloc(sizeof(char) * (len_s1 + len_s2 + 1))))
-		return (0);
-	index = 0;
-	while (index < len_s1)
-		ret[index++] = *s1++;
-	while (index - len_s1 < len_s2)
-		ret[index++] = *s2++;
-	ret[index] = '\0';
-	free(s1);
-	s1 = ret;
-	return (1);
-}
 
 int		read_buff(char *buff, char **line)
 {
@@ -99,7 +75,7 @@ int		get_next_line(const int fd, char **line)
 		ft_bzero(buff, BUFF_SIZE);
 		*line = NULL;
 	}
-	free (*line);
+	free(*line);
 	if (read_buff(buff, line))
 		nb_read = read_file(fd, line, buff);
 	if (nb_read > 0)

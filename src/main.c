@@ -6,7 +6,7 @@
 /*   By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/21 15:50:43 by nmuller           #+#    #+#             */
-/*   Updated: 2017/09/28 01:40:43 by nmuller          ###   ########.fr       */
+/*   Updated: 2017/09/28 17:16:41 by nmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,34 @@ void	center_map(t_map *map)
 
 void	apply_offset(int key, t_map *map)
 {
-	if (key == 65361)
+	if (key == 123)
 		map->offset_x -= map->zoom;
-	if (key == 65362)
-		map->offset_y -= map->zoom;
-	if (key == 65363)
+	if (key == 124)
 		map->offset_x += map->zoom;
-	if (key == 65364)
+	if (key == 125)
 		map->offset_y += map->zoom;
+	if (key == 126)
+		map->offset_y -= map->zoom;
 }
 
 int		key_pressed(int key, void *parram)
 {
-	if(key == 65307)
-		exit (0);
-	else if (65361 <= key && key <= 65364)
+	if (key == 53)
+		exit(0);
+	else if (123 <= key && key <= 126)
 		apply_offset(key, parram);
-	else if (key == 32)
+	else if (key == 49)
 		center_map(parram);
-	else if (key == 112)
+	else if (key == 15)
 		((t_map *)parram)->zoom += 1;
-	else if (key == 109)
+	else if (key == 14)
 		((t_map *)parram)->zoom -= 1;
-	else if (key == 111)
+	else if (key == 13)
 		((t_map *)parram)->z_height += 1;
-	else if (key == 108)
+	else if (key == 12)
 		((t_map *)parram)->z_height -= 1;
-	if ((65361 <= key && key <= 65364) || (108 <= key && key <= 112)
-										|| key == 32)
+	if ((123 <= key && key <= 126) || (12 <= key && key <= 15)
+										|| key == 49)
 		draw(parram);
 	return (0);
 }
@@ -84,7 +84,7 @@ int		main(int argc, char const *argv[])
 	apply_proj(map);
 	center_map(map);
 	mlx_expose_hook(map->win, draw, map);
-	mlx_key_hook(map->win, key_pressed, map);
+	mlx_hook(map->win, 2, 1L << 0, key_pressed, map);
 	mlx_loop(map->mlx);
 	destroy(map);
 	return (0);

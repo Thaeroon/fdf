@@ -6,7 +6,7 @@
 #    By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 16:48:28 by nmuller           #+#    #+#              #
-#    Updated: 2017/09/27 22:26:24 by nmuller          ###   ########.fr        #
+#    Updated: 2017/09/28 16:02:29 by nmuller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,14 @@ OBJ_PATH = obj
 # compiler flags
 CC = clang
 CFLAGS = -Werror -Wall -Wextra -ggdb -Iinc
-LFLAGS = -I $(LIB_PATH)/libftall/inc -I $(LIB_PATH)/minilibx_x11/includes
+LFLAGS = -I $(LIB_PATH)/libftall/inc -I $(LIB_PATH)/minilibx_macos
 
 # linker flags
-LKFLAGS =  -Llib/minilibx_x11 -lmlx -lXext -lX11 -Llib/libftall -lftall -lm
+LKFLAGS =  -Llib/minilibx_macos -lmlx -framework OpenGL -framework AppKit \
+			-Llib/libftall -lftall -lm
 
 # libs
-LIB = $(LIB_PATH)/libftall/libftall.a $(LIB_PATH)/minilibx_x11/libmlx.a
+LIB = $(LIB_PATH)/libftall/libftall.a $(LIB_PATH)/minilibx_macos/libmlx.a
 
 # files
 SRC_FILES =	main.c input.c display.c utils.c
@@ -56,7 +57,7 @@ $(NAME): $(OBJ) $(LIB)
 
 lib:
 	@make -C $(LIB_PATH)/libftall
-	@make -C $(LIB_PATH)/minilibx_x11
+	@make -C $(LIB_PATH)/minilibx_macos
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
