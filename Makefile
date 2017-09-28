@@ -6,7 +6,7 @@
 #    By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 16:48:28 by nmuller           #+#    #+#              #
-#    Updated: 2017/09/28 16:02:29 by nmuller          ###   ########.fr        #
+#    Updated: 2017/09/28 17:58:15 by nmuller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,15 +23,15 @@ OBJ_PATH = obj
 
 # compiler flags
 CC = clang
-CFLAGS = -Werror -Wall -Wextra -ggdb -Iinc
-LFLAGS = -I $(LIB_PATH)/libftall/inc -I $(LIB_PATH)/minilibx_macos
+CFLAGS = -Werror -Wall -Wextra -Iinc
+LFLAGS = -I $(LIB_PATH)/libft/inc -I $(LIB_PATH)/miniLibX
 
 # linker flags
-LKFLAGS =  -Llib/minilibx_macos -lmlx -framework OpenGL -framework AppKit \
-			-Llib/libftall -lftall -lm
+LKFLAGS =  -Llib/miniLibX -lmlx -framework OpenGL -framework AppKit \
+			-Llib/libft -lft -lm
 
 # libs
-LIB = $(LIB_PATH)/libftall/libftall.a $(LIB_PATH)/minilibx_macos/libmlx.a
+LIB = $(LIB_PATH)/libft/libft.a $(LIB_PATH)/miniLibX/libmlx.a
 
 # files
 SRC_FILES =	main.c input.c display.c utils.c
@@ -56,8 +56,8 @@ $(NAME): $(OBJ) $(LIB)
 	$(CC) $(OBJ) -o $(NAME) $(LKFLAGS)
 
 lib:
-	@make -C $(LIB_PATH)/libftall
-	@make -C $(LIB_PATH)/minilibx_macos
+	@make -C $(LIB_PATH)/libft
+	@make -C $(LIB_PATH)/miniLibX
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
@@ -71,7 +71,8 @@ fclean: clean
 	@rm -fv $(NAME)
 
 fcleanall: fclean
-	@make fclean -C $(LIB_PATH)/libftall
+	@make fclean -C $(LIB_PATH)/libft
+	@make clean -C $(LIB_PATH)/miniLibX
 
 re: fclean all
 

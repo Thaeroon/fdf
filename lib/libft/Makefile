@@ -6,7 +6,7 @@
 #    By: nmuller <nmuller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/07 16:48:28 by nmuller           #+#    #+#              #
-#    Updated: 2017/09/21 16:06:32 by nmuller          ###   ########.fr        #
+#    Updated: 2017/09/28 17:48:58 by nmuller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRC_FILES =	get_next_line.c \
 			ft_xtoi.c
 
 # executable name
-NAME = libftall.a
+NAME = libft.a
 
 ##############
 # PROCESSING #
